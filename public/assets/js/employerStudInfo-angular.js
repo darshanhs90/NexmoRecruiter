@@ -22,7 +22,7 @@ $scope.getInfo=function($val){
     //call getPerson info with email id
      var email=$scope.listOfNames[$val].email;
 $http({
-    url: 'http://nexmorecruiter.mybluemix.net/personInfo', 
+    url: 'http://localhost:1337/personInfo', 
     method: "GET",
     params:{email:email}
  }).success(function(data, status, headers, config) {
@@ -40,7 +40,7 @@ $scope.getSnaScore=function($val){
 //sna score based on the text input
 var val=$val;
 $http({
-    url: 'http://nexmorecruiter.mybluemix.net/twitterInsight', 
+    url: 'http://localhost:1337/twitterInsight', 
     method: "GET",
     params:{val:val}
  }).success(function(data, status, headers, config) {

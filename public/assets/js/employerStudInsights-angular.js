@@ -98,7 +98,7 @@ $http({
  var toPhone=$scope.listOfNames[$val].pnumber;
  var url='https://s3-us-west-2.amazonaws.com/hackathonutd/offer.xml';
 $http({
-    url: 'http://nexmorecruiter.mybluemix.net/call', 
+    url: 'http://localhost:1337/call', 
     method: "GET",
     params:{toPhone:toPhone,url:url}
  }).success(function(data, status, headers, config) {

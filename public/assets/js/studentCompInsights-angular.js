@@ -10,7 +10,7 @@ var companyName=$scope.srch;
 
 
 $http({
-    url: 'http://nexmorecruiter.mybluemix.net/getCompInfo', 
+    url: 'http://localhost:1337/getCompInfo', 
     method: "GET",
     params:{companyName:companyName}
  }).success(function(data, status, headers, config) {
@@ -20,7 +20,7 @@ $http({
 			$scope.stockData=data.query.results.quote;  
 
 		$http({
-    url: 'http://nexmorecruiter.mybluemix.net/twitterCompanySentiment', 
+    url: 'http://localhost:1337/twitterCompanySentiment', 
     method: "GET",
     params:{companyName:companyName}
  }).success(function(data, status, headers, config) {
