@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Smart Techruiter</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-controller="myCtrl">
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Employer Homepage
+                    </a>
+                </li>
+                <li>
+                    <a href="employerPostLogin.html">Homepage</a>
+                </li>
+                <li>
+                    <a href="employerDashboard.html">Dashboard</a>
+                </li>
+                <li>
+                    <a href="employerStudInsights.html">Student Insights</a>
+                </li>
+                <li>
+                    <a href="employerStudInfo.html">Student Info</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Employer Home</h1>
+                        <p>Welcome! Employer</p>
+                        <!-- show company stock info -->
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <div ng-show="stockData!=''">
+                            <table class="table table-striped">
+                                <tr><td>Name:</td><td>{{stockData.Name}}</td></tr>
+                                <tr><td>Exchange:</td><td>{{stockData.StockExchange}}</td></tr>
+                                <tr><td>Last Trade:</td><td>{{stockData.LastTradeDate}} {{stockData.LastTradeTime}}</td></tr>
+                                <tr><td>Price:</td><td>{{stockData.LastTradePriceOnly}}</td></tr>
+                                <tr><td>Change:</td><td>{{stockData.Change}}</td></tr>
+                                <tr><td>Change %:</td><td>{{stockData.ChangeinPercent}}</td></tr>
+                                <tr><td>Day Open:</td><td>{{stockData.Open}}</td></tr>
+                                <tr><td>Day High:</td><td>{{stockData.DaysHigh}}</td></tr>
+                                <tr><td>Day Low:</td><td>{{stockData.DaysLow}}</td></tr>
+                                <tr><td>volume:</td><td>{{stockData.Volume}}</td></tr>
+                                <tr><td>Day Avg Vol:</td><td>{{stockData.AverageDailyVolume}}</td></tr>
+                                <tr><td>Year High:</td><td>{{stockData.YearHigh}}</td></tr>
+                                <tr><td>Year Low:</td><td>{{stockData.YearLow}}</td></tr>
+                                <tr><td>Market Cap:</td><td>{{stockData.MarketCapitalization}}</td></tr>
+                                
+                            </table>
+
+
+                        <div>    
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script src="assets/js/angular.min.js"></script>   
+    <script src="assets/js/employer-postlogin-angular.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>

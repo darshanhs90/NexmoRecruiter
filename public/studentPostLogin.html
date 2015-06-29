@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Smart Techruiter</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-controller="myCtrl">
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Student Homepage
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Homepage</a>
+                </li>
+                <li>
+                    <a href="studentDashboard.html">Dashboard</a><!-- who all have been added on the site -->
+                </li>
+                <li>
+                    <a href="studentCompInsights.html">Company Insights</a><!-- search for company stock data and twitter info -->
+                </li>
+                <li>
+                    <a href="studentCompInfo.html">Company Info</a>
+                </li><!-- company info like location and others -->
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Student Homepage</h1>
+                        <h3>How do you want to create the smart Resume? </h3>
+                        <button class="btn btn-success" ng-click="recordVoice()">Record Voice Interview ?</button>
+                        <button class="btn btn-success" ng-click="answerText()">Answer Textual Interview ?</button>
+                        <br><br><br>
+                        <div ng-show="answerer==true || recorder==true">
+                        <h4>Record your response below for the following Question:</h4>
+                        <h5>Tell me About Yourself</h5>
+                        </div>
+                     <a href="http://speech-to-text-nodejs-prajwalhkreddy-1539.mybluemix.net" ng-show="recorder==true">
+                        <image src="images/recorder.jpg"></image>
+                    </a>
+                    <div ng-show="answerer==true">
+                        <textarea ng-model="txtarea" rows="10" cols="100" >Enter your Response Here with atleast minimum of 150 words
+                        </textarea>
+                        <br>
+                        <h5 class="pull-center">{{txtarea.length}} characters entered</h5>
+
+
+                        <input class="form form-control"type="email" ng-model="email" placeholder="enter emailid to confirm" ng-show="txtarea.length>400"/>
+                        <br>
+                        <button  ng-show="txtarea.length>400 && email!=''" class="btn btn-info" ng-click="submitfn()">Submit your Response</button>
+                    </div>
+
+                        <hr/>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/student-postlogin-angular.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
