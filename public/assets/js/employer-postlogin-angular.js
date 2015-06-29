@@ -11,7 +11,7 @@ app.controller('myCtrl',function($scope,$http) {
 //                     });  
 
 $http({
-    url: 'http://smarttechruiter.mybluemix.net/getCompInfo', 
+    url: 'http://nexmorecruiter.mybluemix.net/getCompInfo', 
     method: "GET",
     params:{companyName:'Google'}
  }).success(function(data, status, headers, config) {

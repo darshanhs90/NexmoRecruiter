@@ -18,7 +18,7 @@ $scope.getInsights=function($val){
 
 
  $http({
-    url: 'http://smarttechruiter.mybluemix.net/personalityInsights', 
+    url: 'http://nexmorecruiter.mybluemix.net/personalityInsights', 
     method: "GET",
     params:{val:val}
  }).success(function(data, status, headers, config) {
@@ -42,7 +42,7 @@ $scope.shortlist=function($val){
     var textval='Congrats.You have been shortlisted for a job.';
     
 $http({
-    url: 'http://smarttechruiter.mybluemix.net/message', 
+    url: 'http://nexmorecruiter.mybluemix.net/message', 
     method: "GET",
     params:{number:number,textval:textval}
  }).success(function(data, status, headers, config) {
@@ -55,7 +55,7 @@ $http({
  var email=$scope.listOfNames[$val].email;
  var subject='Job Shortlist';
 $http({
-    url: 'http://smarttechruiter.mybluemix.net/sendMail', 
+    url: 'http://nexmorecruiter.mybluemix.net/sendMail', 
     method: "GET",
     params:{email:email,textval:textval,subject:subject}
  }).success(function(data, status, headers, config) {
@@ -74,7 +74,7 @@ $scope.offer=function($val){
     var textval='Congrats.You have been Offered for a job.';
     
 $http({
-    url: 'http://smarttechruiter.mybluemix.net/message', 
+    url: 'http://nexmorecruiter.mybluemix.net/message', 
     method: "GET",
     params:{number:number,textval:textval}
  }).success(function(data, status, headers, config) {
@@ -87,7 +87,7 @@ $http({
  var email=$scope.listOfNames[$val].email;
  var subject='Job Offer';
 $http({
-    url: 'http://smarttechruiter.mybluemix.net/sendMail', 
+    url: 'http://nexmorecruiter.mybluemix.net/sendMail', 
     method: "GET",
     params:{email:email,textval:textval,subject:subject}
  }).success(function(data, status, headers, config) {
@@ -98,7 +98,7 @@ $http({
  var toPhone=$scope.listOfNames[$val].pnumber;
  var url='https://s3-us-west-2.amazonaws.com/hackathonutd/offer.xml';
 $http({
-    url: 'http://smarttechruiter.mybluemix.net/call', 
+    url: 'http://nexmorecruiter.mybluemix.net/call', 
     method: "GET",
     params:{toPhone:toPhone,url:url}
  }).success(function(data, status, headers, config) {
