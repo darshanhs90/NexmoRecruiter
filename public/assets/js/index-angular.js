@@ -15,7 +15,7 @@ $scope.requestId='';
 $scope.subscribe='Subscribe to Employer Updates';
 
 $scope.sender=function(){
-alert('sender');
+//alert('sender');
 $http({
     url: 'http://nexmorecruiter.mybluemix.net/verifycode', 
     method: "GET",
