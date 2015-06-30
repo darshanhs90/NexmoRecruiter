@@ -29,6 +29,10 @@ var speech_to_text = watson.speech_to_text({
     version: 'v1'
 });
 
+var phoneNumber='';
+var emailId='';
+var companyName='';
+
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
@@ -44,62 +48,135 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, appEnv.bind, function() {
-//app.listen(1337, '127.0.0.1', function() {
+//app.listen(appEnv.port, appEnv.bind, function() {
+app.listen(1337, '127.0.0.1', function() {
 
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
 });
 
+//set email
+app.get('/setEmail', function(reqst, rspns) {
+var id=reqst.query.email;
+emailId=id;
+rspns.end('1');
+});
+//set phonenumber
+app.get('/setPhone', function(reqst, rspns) {
+var id=reqst.query.phone;
+phoneNumber=id;
+rspns.end('1');
 
-
-
-//send message
-
-
-app.get('/message', function(reqst, res) {
-    console.log(reqst);
-var number='+1'+reqst.query.number;
-console.log(number);
-var textval=reqst.query.textval;
-    clientTwilio.sendMessage({
-
-        to: number, // Any number Twilio can deliver to
-        from: '+14694164117', // A number you bought from Twilio and can use for outbound communication
-        body: textval // body of the SMS message
-
-    }, function(err, responseData) { //this function is executed when a response is received from Twilio
-
-        if (!err) { // "err" is an error received during the request, if any
-
-            // "responseData" is a JavaScript object containing data received from Twilio.
-            // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-            // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-
-            console.log(responseData.from); // outputs "+14506667788"
-            console.log(responseData.body); // outputs "word to your mother."
-
-            res.end('Message sent Successfully')
-        }
-    }); 
+});
+//set companyname
+app.get('/setCompany', function(reqst, rspns) {
+var id=reqst.query.companyName;
+companyName=id;
+rspns.end('1');
 });
 
-//twilio confirmation call
-app.get('/call', function(reqst, res) {
-var toPhone=reqst.query.toPhone;
-var url=reqst.query.url;
-    clientTwilio.calls.create({
-        to: "+1"+toPhone,
-        from: "+14694164117",
-        url: url,
-        method: "GET",
-        fallbackMethod: "GET",
-        statusCallbackMethod: "GET",
-        record: "false"
-    }, function(err, call) {
-        console.log(call.sid);
-        res.end('sid is' + call.sid);
-    });
+//set email
+app.get('/getEmail', function(reqst, rspns) {
+rspns.end(emailId);
+
+});
+//set phonenumber
+app.get('/getPhone', function(reqst, rspns) {
+rspns.end(phoneNumber);
+
+});
+//set companyname
+app.get('/getCompany', function(reqst, rspns) {
+rspns.end(companyName);
+});
+
+
+//nexmo verifycode
+app.get('/verifycode', function(reqst, rspns) {
+    var number=reqst.query.number;
+    console.log(number);
+https.get('https://api.nexmo.com/verify/json?api_key=638c2b46&api_secret=60539549&number=1'+number+'&brand=NexRuiter Verify',
+        function(response) {
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+                // Data reception is done, do whatever with it!
+                console.log(body);
+                var parsed = JSON.parse(body);
+                rspns.end(body);
+            });
+        });
+});
+
+//nexmo verifycheck
+app.get('/verifycheck', function(reqst, rspns) {
+var code=reqst.query.code;
+var reqstid=reqst.query.requestId;
+https.get('https://api.nexmo.com/verify/check/json?api_key=638c2b46&api_secret=60539549&request_id='+requestId+'&code='+code,
+        function(response) {
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+                // Data reception is done, do whatever with it!
+                //var parsed = JSON.parse(body);
+                rspns.end(body);
+                
+            });
+
+        });
+
+
+});
+
+
+
+
+//nexmo send message
+app.get('/message', function(reqst, rspns) {
+    var number=reqst.query.number;
+    var text=reqst.query.text;
+https.get('https://rest.nexmo.com/sms/json?api_key=638c2b46&api_secret=60539549&from=12092664035&to=1'+number+'&text='+text,
+        function(response) {
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+                // Data reception is done, do whatever with it!
+                var parsed = JSON.parse(body);
+                rspns.end(parsed);
+                
+            });
+
+        });
+});
+
+//nexmo shortlist/offer call
+app.get('/call', function(reqst, rspns) {
+    var number=reqst.query.number;
+    var text=reqst.query.text;
+    https.get('https://api.nexmo.com/tts/xml?api_key=638c2b46&api_secret=60539549&to=1'+number+'&text='+text,
+        function(response) {
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+                // Data reception is done, do whatever with it!
+                var parsed = JSON.parse(body);
+                rspns(parsed);
+                
+            });
+
+        });
 });
 
 

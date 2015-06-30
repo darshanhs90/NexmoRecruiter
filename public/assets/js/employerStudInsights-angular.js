@@ -1,7 +1,10 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$location,$http) {
 $scope.insights='';
-
+$scope.verified=false;
+$scope.verifyshow=false;
+$scope.pnum='';
+$scop.selectVal=-1;
 //php request to get data from "listOfNames"
 $scope.listOfNames='';
 $http.get('http://techrecruit.site40.net/retrieve.php')
@@ -11,6 +14,23 @@ $http.get('http://techrecruit.site40.net/retrieve.php')
                     }).error(function(data, status) { 
                         alert("Error While Fetching Data,Try Again");
                     });  
+
+
+$scope.verify=function(){
+if($scope.verified==true)
+{
+    alert('verification successfull');
+    offer($scope.selectVal);
+}
+else{
+    alert('Invalid Verification code');
+}
+//call server for verfn
+};
+
+
+
+
 $scope.getInsights=function($val){
 	//get text corresponding to the val and pass the val  
     var val=$val;
@@ -67,9 +87,11 @@ $http({
 
 };
 $scope.offer=function($val){
+    $scope.selectVal=$val;
 	//send job offer message,call and email
 	//get phone num and email from array corresponding the the val and pass it with custom text
-
+    $scope.verifyshow=true;
+if($scope.verified==true){
  var number=$scope.listOfNames[$val].pnumber;
     var textval='Congrats.You have been Offered for a job.';
     
@@ -108,7 +130,10 @@ $http({
  });
  });
 
-
+}
+else{
+    alert('verify your presence before offering the job');
+}
 };
 
 

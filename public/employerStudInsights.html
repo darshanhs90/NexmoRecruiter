@@ -61,16 +61,28 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h1>Student Insights</h1>
-                        <div ng-repeat="x in listOfNames track by $index">
+                        <!-- <div ng-repeat="x in listOfNames track by $index"> -->
                         <p>Name: {{x.fname}} {{x.lname}} Email:{{x.email}} University:{{x.univname}}</p>
                         <button class="btn btn-info" ng-click="getInsights($index)">Get Insights</button>
                         <button class="btn btn-info" ng-click="shortlist($index)">Shortlist for next round</button>
-                        <button class="btn btn-info" ng-click="offer($index)">Give Job Offer</button>                        
+                        <button class="btn btn-info" ng-click="offer($index)">Give Job Offer</button> 
                         <button class="btn btn-info" ng-click="reject($index)">Reject</button>
                         <hr/>
-                        </div>    
+                       <!--  </div> -->    
                         </div>
 <div class="col-lg-6" >
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+    <div ng-show="verifyshow"> <input type="text" placeholder="Enter phone number (1234567890)" ng-model="pnum" class="form-control"/>
+                        <input type="text" ng-model="verfncode" placeholder="Enter verification Code" class="form-control" ng-show="pnum!=''"/>
+                        <button class="btn btn-success col-sm-3" ng-click="verify()" ng-show="verfncode.length>3">Verify</button></div>
+
+
 <div style="width:10;height:100;overflow:scroll" ng-show="insights!=''">    
 <h1>Insights Info</h1>
 <div>

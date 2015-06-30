@@ -10,7 +10,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		
 		<link rel="stylesheet" href="assets/css/main.css" />
+
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
@@ -19,7 +21,7 @@
 		<!-- Header -->
 			<section id="header">
 				<header class="major">
-					<h1>Smart Techruiter By IBM Watson</h1>
+					<h1>Smart Techruiter By NEXMO</h1>
 					<p>A Smarter way to a smarter Planet,Now also in Recruiting</a></p>
 				</header>
 				<div class="container">
@@ -39,7 +41,7 @@
 						</header>
 						<p>
 							We are Techruiters.We help Students choose employers smartly as well as employers pick potential candidates smartly.
-							All with the Help Of IBM watson .
+							All with the Help Of <b>Nexmo</b> .
 
 						</p>
 					</div>
@@ -55,7 +57,7 @@
 						<header class="major">
 							<h2>Stuff We do</h2>
 						</header>
-						<p>Provide a Platform for Students to meet employers and vice versa and give insightful data about the other party using IBM Watson</p>
+						<p>Provide a Platform for Students to meet employers and vice versa and give insightful data about the other party using NEXMO</p>
 						<ul class="icons-grid">
 							<li>
 								<span class="icon major fa-camera-retro"></span>
@@ -94,7 +96,10 @@
 							<div class="6u$ 12u$(xsmall)"><input type="text" name="lname" id="lname" placeholder="Lastname" ng-model="lname" required="true"/></div>
 							<div class="6u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" ng-model="email" required="true"/></div>
 							<div class="6u$ 12u$(xsmall)"><input type="password" name="password" id="password" placeholder="Password" ng-model="pwd" required="true"/></div>
-							<div class="12u$ 12u$(xsmall)"><input type="text" name="phone" id="phone" placeholder="Enter Phone number (xxx)-xxx-xxxx" ng-model="phone" required="true"/></div>
+							<div class="12u$ 12u$(xsmall)"><input type="text" name="phone" id="phone" placeholder="Enter Phone number (123456789)" ng-model="phone" required="true"/></div>
+							<div class="12u 12u$(xsmall)" ng-show="phone!=''"><input type="button"  value="Send Verification Code" ng-click="sender()" class="special"/></div>
+							<div class="6u 12u$(xsmall)" ng-show="phone!=''"><input type="text"  placeholder="Enter Verification Code" ng-model="verfn" required="true"/></div>
+							<div class="6u$ 12u$(xsmall)" ng-show="phone!=''" ><input type="button"  class="special"value="Verify" placeholder="Lastname" ng-click="verify()" ng-model="bnverify" ng-disabled="verfn.length<4"required="true"/></div>
 							
 							<div class="12u$ 12u$(xsmall)"> <select  id="sel1" ng-model="slct" required="true">
 
@@ -103,7 +108,13 @@
   </select></div>
   <div class="12u$ " ng-show="slct=='Student'"><input type="text" name="univname" id="univ" placeholder="University Name" ng-model="univ" required="true"/></div>
   <div class="12u$ " ng-show="slct=='Recruiter'"><input type="text" name="compname" id="comp" placeholder="Company name" ng-model="comp" required="true"/></div>
-			
+
+<div class="12u$ 12u$(xsmall)" ng-show="slct=='Student'"> <select  id="sel1" ng-model="subscribe" required="true">
+
+    <option selected="selected">Subscribe to Employer Updates</option>
+    <option>Cancel Subscription</option>
+  </select></div>
+
 
 							<div class="12u$">
 								<ul class="actions">
@@ -164,6 +175,7 @@
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
+			<script src="js/bootstrap.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
