@@ -60,8 +60,8 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, appEnv.bind, function() {
-//app.listen(1337, '127.0.0.1', function() {
+//app.listen(appEnv.port, appEnv.bind, function() {
+app.listen(1337, '127.0.0.1', function() {
 
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
@@ -185,7 +185,9 @@ https.get('https://rest.nexmo.com/sms/json?api_key=638c2b46&api_secret=60539549&
 app.get('/call', function(reqst, rspns) {
     var number=reqst.query.number;
     var text=reqst.query.text;
-        if(text=='short')
+        if(text=='abc')
+            text='';
+     else if(text=='short')
         text='Congrats+You+have+been+shortlisted+for+a+job';
     else if(text=='offer')
         text='Congrats+You+have+been+offered+for+a+job';
@@ -208,7 +210,28 @@ app.get('/call', function(reqst, rspns) {
         });
 });
 
+//call1
+//nexmo shortlist/offer call
+app.get('/message1', function(reqst, rspns) {
+    var number=reqst.query.number;
+    var text=reqst.query.text;
+    var val='A+Recruiter+From+'+text+'+has+joined+Nexruiter';
+   https.get('https://rest.nexmo.com/sms/json?api_key=638c2b46&api_secret=60539549&from=12092664035&to=1'+number+'&text='+val,
+        function(response) {
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
 
+                // Data reception is done, do whatever with it!
+                
+                rspns.end(body);
+                
+            });
+
+        });
+});
 //sendgrid mail
 
 app.get('/sendMail', function(reqst, rspns) {

@@ -98,6 +98,7 @@ else if($scope.slct=='Student')
                     .success(function(data, status, headers, config) {
                       alert(data);
                       //set emailId
+
                       $http({
     					url: 'http://nexmorecruiter.mybluemix.net/setEmail', 
     					method: "GET",
@@ -146,7 +147,23 @@ else if($scope.slct=='Recruiter')
 		})
                     .success(function(data, status, headers, config) {
                       alert(data);
+                      $http({
+    url: 'http://nexruiter.webuda.com/retrieve_sub.php', 
+    method: "GET",
+    }).success(function(data, status, headers, config) {
+    	$scope.listOfSubscribers=data;
+    	for (var i = 0; i <data.length; i++) {
+    		
+ 						$http({
+    					url: 'http://localhost:1337/message1', 
+    					method: "GET",
+    					params:{number:$scope.listOfSubscribers[i].pnumber,text:$scope.comp}
+ 						}).success(function(data, status, headers, config) {
+ 							console.log(data);
+						});
+ 					}
 
+ 		});
                        //set emailId
                       $http({
     					url: 'http://nexmorecruiter.mybluemix.net/setEmail', 
