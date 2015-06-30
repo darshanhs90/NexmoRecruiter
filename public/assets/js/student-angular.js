@@ -16,25 +16,26 @@ $http.post('http://nexruiter.webuda.com/login.php',{
                       //alert(data);
                      		//$scope.listOfNames=data;
                             console.log(data);
+                            var data1=data;
                             if(data!='Unsuccessful Login'){
 
 						$http({
     					url: 'http://nexmorecruiter.mybluemix.net/setCompany', 
     					method: "GET",
-    					params:{companyName:data[0].companyname}
+    					params:{companyName:data1[0].companyname}
  						}).success(function(data, status, headers, config) {
  						
  							console.log(data);
-						
+						  
 
  						$http({
     					url: 'http://nexmorecruiter.mybluemix.net/setPhone', 
     					method: "GET",
-    					params:{phone:data[0].pnumber}
+    					params:{phone:data1[0].pnumber}
  						}).success(function(data, status, headers, config) {
 
  							console.log(data);
-                             //window.location.replace('./studentPostLogin.html');
+                             window.location.replace('./studentPostLogin.html');
 						});
 
                         });
