@@ -4,29 +4,42 @@ $scope.insights='';
 $scope.verified=false;
 $scope.verifyshow=false;
 $scope.pnum='';
-$scop.selectVal=-1;
+$scope.selectVal=-1;
+$scope.globalPhoneNumber='';
+$scope.requestId='';
 //php request to get data from "listOfNames"
 $scope.listOfNames='';
-$http.get('http://techrecruit.site40.net/retrieve.php')
+$http.get('http://nexruiter.webuda.com/retrieve.php')
                     .success(function(data, status, headers, config) {
                             $scope.listOfNames=data;
                             console.log(data);
+                            $http.get('http://localhost:1337/getPhone')
+                                .success(function(data, status, headers, config) {
+                            $scope.globalPhoneNumber=data;
+                            console.log(data);
+                             }).error(function(data, status) { 
+                                 alert("Error While Fetching Data,Try Again");
+                            });  
                     }).error(function(data, status) { 
                         alert("Error While Fetching Data,Try Again");
                     });  
 
 
 $scope.verify=function(){
-if($scope.verified==true)
-{
-    alert('verification successfull');
-    offer($scope.selectVal);
+$http({
+    url: 'http://nexmorecruiter.mybluemix.net/verifycheck', 
+    method: "GET",
+    params:{requestId:$scope.requestId,code:$scope.verfncode}
+ }).success(function(data, status, headers, config) {
+        if(data.status==0){
+          $scope.verified=true;
+          $scope.offer($scope.selectVal);
+
+            }
+        else
+            alert('Verification Failed');
+});
 }
-else{
-    alert('Invalid Verification code');
-}
-//call server for verfn
-};
 
 
 
@@ -59,14 +72,14 @@ $scope.shortlist=function($val){
 	//get phone num and email from array corresponding the the val and pass it with custom text
     var number=$scope.listOfNames[$val].pnumber;
     console.log(number);
-    var textval='Congrats.You have been shortlisted for a job.';
+    var textval='short';
     
 $http({
     url: 'http://nexmorecruiter.mybluemix.net/message', 
     method: "GET",
     params:{number:number,textval:textval}
  }).success(function(data, status, headers, config) {
-    alert(data);
+    alert('Message Sent successfully');
     console.log(data);
 
 
@@ -88,24 +101,35 @@ $http({
 };
 $scope.offer=function($val){
     $scope.selectVal=$val;
-	//send job offer message,call and email
-	//get phone num and email from array corresponding the the val and pass it with custom text
-    $scope.verifyshow=true;
+
+  
+
 if($scope.verified==true){
  var number=$scope.listOfNames[$val].pnumber;
-    var textval='Congrats.You have been Offered for a job.';
+    var textval='offer';
     
 $http({
     url: 'http://nexmorecruiter.mybluemix.net/message', 
     method: "GET",
     params:{number:number,textval:textval}
  }).success(function(data, status, headers, config) {
-    alert(data);
+    alert('Message Sent successfully');
     console.log(data);
 
 
 
  
+
+
+ var toPhone=$scope.listOfNames[$val].pnumber;
+$http({
+    url: 'http://nexmorecruiter.mybluemix.net/call', 
+    method: "GET",
+    params:{number:toPhone,textval:textval}
+ }).success(function(data, status, headers, config) {
+    alert('Student has been successfully Informed by Call');
+    console.log(data);
+    $scope.verified=false;
  var email=$scope.listOfNames[$val].email;
  var subject='Job Offer';
 $http({
@@ -115,24 +139,25 @@ $http({
  }).success(function(data, status, headers, config) {
     alert(data);
     console.log(data);
-
-
- var toPhone=$scope.listOfNames[$val].pnumber;
- var url='https://s3-us-west-2.amazonaws.com/hackathonutd/offer.xml';
-$http({
-    url: 'http://localhost:1337/call', 
-    method: "GET",
-    params:{toPhone:toPhone,url:url}
- }).success(function(data, status, headers, config) {
-    alert(data);
-    console.log(data);
  });
  });
  });
 
 }
 else{
-    alert('verify your presence before offering the job');
+    $http({
+    url: 'http://nexmorecruiter.mybluemix.net/verifycode', 
+    method: "GET",
+    params:{number:$scope.globalPhoneNumber}
+ }).success(function(data, status, headers, config) {
+    if(data.status==0){
+        alert('Verification code on the way,Please verify your identity');
+        $scope.requestId=data.request_id;
+        $scope.verifyshow=true;
+    }
+    else
+        alert('Couldnot send verification code,Contact the Admin');
+ });
 }
 };
 
@@ -146,7 +171,7 @@ $scope.reject=function($val){
 var email=$scope.listOfNames[$val].email;
  var subject='Job Reject';
 $http({
-    url: 'http://localhost:1337/sendMail', 
+    url: 'http://nexmorecruiter.mybluemix.net/sendMail', 
     method: "GET",
     params:{number:number,textval:textval,subject:subject}
  }).success(function(data, status, headers, config) {

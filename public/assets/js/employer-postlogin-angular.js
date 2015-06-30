@@ -9,11 +9,23 @@ app.controller('myCtrl',function($scope,$http) {
 //                     }).error(function(data, status) { 
 //                         alert("Error While Fetching Data,Try Again");
 //                     });  
+$scope.companyName='Google';
+$http({
+    url: 'http://nexmorecruiter.mybluemix.net/getCompany', 
+    method: "GET"
+ }).success(function(data, status, headers, config) {
+console.log('company name is');
+$scope.companyName=(data);
+console.log(data);
+if($scope.companyName=='')
+	$scope.companyName='Google';
+
+
 
 $http({
-    url: 'http://localhost:1337/getCompInfo', 
+    url: 'http://nexmorecruiter.mybluemix.net/getCompInfo', 
     method: "GET",
-    params:{companyName:'Google'}
+    params:{companyName:$scope.companyName}
  }).success(function(data, status, headers, config) {
 
 		console.log(data);  
@@ -26,5 +38,6 @@ $http({
 
 		});
 
+});
 
 });

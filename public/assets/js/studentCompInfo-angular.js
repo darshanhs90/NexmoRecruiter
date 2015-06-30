@@ -11,7 +11,7 @@ $scope.srchr=function(){
 var companyName=$scope.srch;
 
 $http({
-    url: 'http://localhost:1337/companyInfo', 
+    url: 'http://nexmorecruiter.mybluemix.net/companyInfo', 
     method: "GET",
     params:{companyName:companyName}
  }).success(function(data, status, headers, config) {

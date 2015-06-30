@@ -8,7 +8,7 @@ $scope.login=function(){
 	//alert('asd');
 	
 if($scope.email!='' && $scope.pwd!=''){
-$http.post('http://techrecruit.site40.net/login.php',{
+$http.post('http://nexruiter.webuda.com/login.php',{
 			'email':$scope.email,
 			'pwd':$scope.pwd
 		})
@@ -16,8 +16,35 @@ $http.post('http://techrecruit.site40.net/login.php',{
                       alert(data);
                      		//$scope.listOfNames=data;
                             console.log(data);
-                            if(data=='Login Successful')
+                            if(data!='Unsuccessful Login'){
+
+						$http({
+    					url: 'http://nexmorecruiter.mybluemix.net/setCompany', 
+    					method: "GET",
+    					params:{companyName:data.companyname}
+ 						}).success(function(data, status, headers, config) {
+ 						
+ 							console.log(data);
+						});
+
+ 						$http({
+    					url: 'http://nexmorecruiter.mybluemix.net/setPhone', 
+    					method: "GET",
+    					params:{phone:data.pnumber}
+ 						}).success(function(data, status, headers, config) {
+
+ 							console.log(data);
+						});
+
+
+
+
+
+
+
+
 	                             window.location.replace('./studentPostLogin.html');
+	                             }
 	                         else
 	                         	alert('Bad Credentials');
                     }).error(function(data, status) { 

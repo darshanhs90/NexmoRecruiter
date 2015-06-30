@@ -62,11 +62,14 @@
                         <h1>Student Homepage</h1>
                         <h3>How do you want to create the smart Resume? </h3>
                         <button class="btn btn-success" ng-click="recordVoice()">Record Voice Interview ?</button>
-                        <button class="btn btn-success" ng-click="answerText()">Answer Textual Interview ?</button>
+                        <button class="btn btn-success" ng-click="showqn=true">Answer Textual Interview ?</button>
                         <br><br><br>
+                        <div>
+                        <button class="btn btn-success" ng-show="showqn==true" ng-click="answerText()">Get First Question</button>
+                            
+                        </div>
                         <div ng-show="answerer==true || recorder==true">
-                        <h4>Record your response below for the following Question:</h4>
-                        <h5>Tell me About Yourself</h5>
+                        <h4>Record your response below for the Question sent to you via the call</h4>
                         </div>
                      <a href="http://speech-to-text-nodejs-prajwalhkreddy-1539.mybluemix.net" ng-show="recorder==true">
                         <image src="images/recorder.jpg"></image>
@@ -77,10 +80,8 @@
                         <br>
                         <h5 class="pull-center">{{txtarea.length}} characters entered</h5>
 
-
-                        <input class="form form-control"type="email" ng-model="email" placeholder="enter emailid to confirm" ng-show="txtarea.length>400"/>
                         <br>
-                        <button  ng-show="txtarea.length>400 && email!=''" class="btn btn-info" ng-click="submitfn()">Submit your Response</button>
+                        <button  ng-show="txtarea.length>400 " class="btn btn-info" ng-click="submitfn()" ng-model="bnsubmit">Get Next Question</button>
                     </div>
 
                         <hr/>

@@ -1,8 +1,6 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$location,$http) {
 
-
-
 $scope.email='';
 $scope.pwd='';
 
@@ -10,16 +8,47 @@ $scope.login=function(){
 	//alert('asd');
 	
 if($scope.email!='' && $scope.pwd!=''){
-$http.post('http://techrecruit.site40.net/login.php',{
+$http.post('http://nexruiter.webuda.com/login.php',{
 			'email':$scope.email,
 			'pwd':$scope.pwd
 		})
                     .success(function(data, status, headers, config) {
-                      alert(data);
+                     
                      		//$scope.listOfNames=data;
                             console.log(data);
-                            if(data=='Login Successful')
-	                             window.location.replace('./employerPostLogin.html');
+                             //alert(data);
+                            if(data!='Unsuccessful Login'){
+                                console.log(data[0].companyname);
+                               console.log(data[0].pnumber);
+                                 
+						$http({
+    					url: 'http://localhost:1337/setCompany', 
+    					method: "GET",
+    					params:{companyName:data[0].companyname}
+ 						}).success(function(data, status, headers, config) {
+ 						
+ 						
+
+ 						$http({
+    					url: 'http://localhost:1337/setPhone', 
+    					method: "GET",
+    					params:{phone:data[0].pnumber}
+ 						}).success(function(data, status, headers, config) {
+
+ 							console.log(data);
+						});   
+                        console.log(data);
+                        });
+
+
+
+
+
+
+
+
+	                            window.location.replace('./employerPostLogin.html');
+	                             }
 	                         else
 	                         	alert('Bad Credentials');
                     }).error(function(data, status) { 
@@ -29,7 +58,7 @@ $http.post('http://techrecruit.site40.net/login.php',{
 else{
 	alert('Fields are Mandatory');
 }
+
+
 }
-
-
 });

@@ -28,10 +28,22 @@ var speech_to_text = watson.speech_to_text({
     password: 'WNMkUbFzLf6c',
     version: 'v1'
 });
-
+var qnArray=[];
 var phoneNumber='';
 var emailId='';
 var companyName='';
+
+var questions=['',
+                  'Tell+Me+about+Yourself',
+                  'What+are+your+Weaknesses',
+                  'What+are+your+Strengths',
+                  'What+motivates+you+to+do+good+job',
+                  'Where+do+you+see+yourself+in+5+years',
+                  'What+was+the+toughest+decision+you+ever+had+to+make',
+                  'Give+me+an+example+of+your+creativity',
+                  'Explain+a+challenging+project+that+you+have+undertaken',
+                  'What+are+yout+goals'];
+
 
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
@@ -48,8 +60,8 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-//app.listen(appEnv.port, appEnv.bind, function() {
-app.listen(1337, '127.0.0.1', function() {
+app.listen(appEnv.port, appEnv.bind, function() {
+//app.listen(1337, '127.0.0.1', function() {
 
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
@@ -65,6 +77,7 @@ rspns.end('1');
 app.get('/setPhone', function(reqst, rspns) {
 var id=reqst.query.phone;
 phoneNumber=id;
+console.log(phoneNumber);
 rspns.end('1');
 
 });
@@ -72,6 +85,7 @@ rspns.end('1');
 app.get('/setCompany', function(reqst, rspns) {
 var id=reqst.query.companyName;
 companyName=id;
+console.log(companyName);
 rspns.end('1');
 });
 
@@ -82,11 +96,15 @@ rspns.end(emailId);
 });
 //set phonenumber
 app.get('/getPhone', function(reqst, rspns) {
+    if(phoneNumber=='')
+        phoneNumber='4697672278';
 rspns.end(phoneNumber);
 
 });
 //set companyname
 app.get('/getCompany', function(reqst, rspns) {
+     if(companyName=='')
+        companyName='Google';
 rspns.end(companyName);
 });
 
@@ -115,7 +133,7 @@ https.get('https://api.nexmo.com/verify/json?api_key=638c2b46&api_secret=6053954
 app.get('/verifycheck', function(reqst, rspns) {
 var code=reqst.query.code;
 var reqstid=reqst.query.requestId;
-https.get('https://api.nexmo.com/verify/check/json?api_key=638c2b46&api_secret=60539549&request_id='+requestId+'&code='+code,
+https.get('https://api.nexmo.com/verify/check/json?api_key=638c2b46&api_secret=60539549&request_id='+reqstid+'&code='+code,
         function(response) {
             var body = '';
             response.on('data', function(d) {
@@ -125,6 +143,7 @@ https.get('https://api.nexmo.com/verify/check/json?api_key=638c2b46&api_secret=6
 
                 // Data reception is done, do whatever with it!
                 //var parsed = JSON.parse(body);
+                console.log(body);
                 rspns.end(body);
                 
             });
@@ -140,7 +159,11 @@ https.get('https://api.nexmo.com/verify/check/json?api_key=638c2b46&api_secret=6
 //nexmo send message
 app.get('/message', function(reqst, rspns) {
     var number=reqst.query.number;
-    var text=reqst.query.text;
+    var text=reqst.query.textval;
+    if(text=='short')
+        text='Congrats+You+have+been+shortlisted+for+a+job';
+    else
+        text='Congrats+You+have+been+offered+for+a+job';
 https.get('https://rest.nexmo.com/sms/json?api_key=638c2b46&api_secret=60539549&from=12092664035&to=1'+number+'&text='+text,
         function(response) {
             var body = '';
@@ -150,8 +173,8 @@ https.get('https://rest.nexmo.com/sms/json?api_key=638c2b46&api_secret=60539549&
             response.on('end', function() {
 
                 // Data reception is done, do whatever with it!
-                var parsed = JSON.parse(body);
-                rspns.end(parsed);
+                
+                rspns.end(body);
                 
             });
 
@@ -162,6 +185,12 @@ https.get('https://rest.nexmo.com/sms/json?api_key=638c2b46&api_secret=60539549&
 app.get('/call', function(reqst, rspns) {
     var number=reqst.query.number;
     var text=reqst.query.text;
+        if(text=='short')
+        text='Congrats+You+have+been+shortlisted+for+a+job';
+    else if(text=='offer')
+        text='Congrats+You+have+been+offered+for+a+job';
+    else 
+        text=questions[reqst.query.qnnumber];
     https.get('https://api.nexmo.com/tts/xml?api_key=638c2b46&api_secret=60539549&to=1'+number+'&text='+text,
         function(response) {
             var body = '';
@@ -171,8 +200,8 @@ app.get('/call', function(reqst, rspns) {
             response.on('end', function() {
 
                 // Data reception is done, do whatever with it!
-                var parsed = JSON.parse(body);
-                rspns(parsed);
+                
+                rspns.end(body);
                 
             });
 
@@ -253,7 +282,7 @@ app.use('/twitterCompanySentiment', function(reqst, respns) {
 
 app.get('/twitterInsight',function(reqst,respns){
 var val=reqst.query.val;
-http.get('http://techrecruit.site40.net/retrieve.php',
+http.get('http://nexruiter.webuda.com/retrieve.php',
         function(response){
             var body = '';
             response.on('data', function(d) {
@@ -335,7 +364,7 @@ app.get('/personInfo', function(reqst, respns) {
 app.get('/personalityInsights', function(reqst, respns) {
    var val=reqst.query.val;
 
-http.get('http://techrecruit.site40.net/retrieve.php',
+http.get('http://nexruiter.webuda.com/retrieve.php',
         function(response){
             var body = '';
             response.on('data', function(d) {

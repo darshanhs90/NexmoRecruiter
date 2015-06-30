@@ -8,7 +8,7 @@ $scope.getSnaScore='';
 $scope.score='';
 
 $scope.listOfNames='';
-$http.get('http://techrecruit.site40.net/retrieve.php')
+$http.get('http://nexruiter.webuda.com/retrieve.php')
                     .success(function(data, status, headers, config) {
                             $scope.listOfNames=data;
                             console.log(data);
@@ -22,7 +22,7 @@ $scope.getInfo=function($val){
     //call getPerson info with email id
      var email=$scope.listOfNames[$val].email;
 $http({
-    url: 'http://localhost:1337/personInfo', 
+    url: 'http://nexmorecruiter.mybluemix.net/personInfo', 
     method: "GET",
     params:{email:email}
  }).success(function(data, status, headers, config) {
@@ -40,7 +40,7 @@ $scope.getSnaScore=function($val){
 //sna score based on the text input
 var val=$val;
 $http({
-    url: 'http://localhost:1337/twitterInsight', 
+    url: 'http://nexmorecruiter.mybluemix.net/twitterInsight', 
     method: "GET",
     params:{val:val}
  }).success(function(data, status, headers, config) {

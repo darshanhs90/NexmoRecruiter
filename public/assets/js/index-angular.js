@@ -17,7 +17,7 @@ $scope.subscribe='Subscribe to Employer Updates';
 $scope.sender=function(){
 alert('sender');
 $http({
-    url: 'http://localhost:1337/verifycode', 
+    url: 'http://nexmorecruiter.mybluemix.net/verifycode', 
     method: "GET",
     params:{number:$scope.phone}
  }).success(function(data, status, headers, config) {
@@ -43,12 +43,13 @@ $http({
 
 
 $scope.verify=function(){
+	console.log($scope.requestId);
 $http({
-    url: 'http://localhost:1337/verifycheck', 
+    url: 'http://nexmorecruiter.mybluemix.net/verifycheck', 
     method: "GET",
     params:{requestId:$scope.requestId,code:$scope.verfn}
  }).success(function(data, status, headers, config) {
- 	var res=JSON.parse(data);
+ 	var res=(data);
  	console.log(res);
  	if(res.status==0)
  	{
@@ -83,7 +84,7 @@ else if($scope.slct=='Student')
 		else
 			$scope.valSub='0';
 		
-		$http.post('http://techrecruit.site40.net/registeribm.php',{
+		$http.post('http://nexruiter.webuda.com/registeribm.php',{
 			'fname':$scope.fname,
 			'lname':$scope.lname,
 			'pnumber':$scope.phone,
@@ -92,13 +93,13 @@ else if($scope.slct=='Student')
 			'email':$scope.email,
 			'pwd':$scope.pwd,
 			'companyname':'',
-			'subscribe':$scope.valSub	
+			'sub':$scope.valSub	
 		})
                     .success(function(data, status, headers, config) {
                       alert(data);
                       //set emailId
                       $http({
-    					url: 'http://localhost:1337/setEmail', 
+    					url: 'http://nexmorecruiter.mybluemix.net/setEmail', 
     					method: "GET",
     					params:{email:$scope.email}
  						}).success(function(data, status, headers, config) {
@@ -108,7 +109,7 @@ else if($scope.slct=='Student')
                       //set phonenumber
 
                       $http({
-    					url: 'http://localhost:1337/setPhone', 
+    					url: 'http://nexmorecruiter.mybluemix.net/setPhone', 
     					method: "GET",
     					params:{phone:$scope.phone}
  						}).success(function(data, status, headers, config) {
@@ -132,7 +133,7 @@ else if($scope.slct=='Recruiter')
 {
 	if($scope.comp!='' && $scope.fname!='' && $scope.lname!='' && $scope.email!='' &&$scope.pwd!='' && $scope.phone!='')
 	{
-		$http.post('http://techrecruit.site40.net/registeribm.php',{
+		$http.post('http://nexruiter.webuda.com/registeribm.php',{
 			'fname':$scope.fname,
 			'lname':$scope.lname,
 			'pnumber':$scope.phone,
@@ -140,14 +141,15 @@ else if($scope.slct=='Recruiter')
 			'stud_rec':'0',
 			'email':$scope.email,
 			'pwd':$scope.pwd,
-			'companyname':$scope.comp	
+			'companyname':$scope.comp	,
+			'sub':'0'	
 		})
                     .success(function(data, status, headers, config) {
                       alert(data);
 
                        //set emailId
                       $http({
-    					url: 'http://localhost:1337/setEmail', 
+    					url: 'http://nexmorecruiter.mybluemix.net/setEmail', 
     					method: "GET",
     					params:{email:$scope.email}
  						}).success(function(data, status, headers, config) {
@@ -157,7 +159,7 @@ else if($scope.slct=='Recruiter')
                       //set phonenumber
 
                       $http({
-    					url: 'http://localhost:1337/setPhone', 
+    					url: 'http://nexmorecruiter.mybluemix.net/setPhone', 
     					method: "GET",
     					params:{phone:$scope.phone}
  						}).success(function(data, status, headers, config) {
@@ -166,7 +168,7 @@ else if($scope.slct=='Recruiter')
 
  						//set companyname
  						$http({
-    					url: 'http://localhost:1337/setCompany', 
+    					url: 'http://nexmorecruiter.mybluemix.net/setCompany', 
     					method: "GET",
     					params:{companyName:$scope.comp}
  						}).success(function(data, status, headers, config) {

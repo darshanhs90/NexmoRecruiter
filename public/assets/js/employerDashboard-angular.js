@@ -5,7 +5,7 @@ app.controller('myCtrl',function($scope,$location,$http) {
 
 //php request to get data from "listOfNames"
 
-$http.get('http://techrecruit.site40.net/retrieve.php')
+$http.get('http://nexruiter.webuda.com/retrieve.php')
                     .success(function(data, status, headers, config) {
                       //alert(data);
                      		$scope.listOfNames=data;

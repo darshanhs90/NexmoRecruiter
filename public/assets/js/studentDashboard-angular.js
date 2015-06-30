@@ -5,7 +5,7 @@ app.controller('myCtrl',function($scope,$location,$http) {
 
 //get listOfNames from table
 
-$http.get('http://techrecruit.site40.net/rec_retrieve.php')
+$http.get('http://nexruiter.webuda.com/rec_retrieve.php')
                     .success(function(data, status, headers, config) {
                             $scope.listOfNames=data;
                             console.log(data);
