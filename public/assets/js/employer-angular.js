@@ -22,7 +22,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
                                console.log(data[0].pnumber);
                                  
 						$http({
-    					url: 'http://localhost:1337/setCompany', 
+    					url: 'http://nexmorecruiter.mybluemix.net//setCompany', 
     					method: "GET",
     					params:{companyName:data[0].companyname}
  						}).success(function(data, status, headers, config) {
@@ -30,7 +30,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
  						
 
  						$http({
-    					url: 'http://localhost:1337/setPhone', 
+    					url: 'http://nexmorecruiter.mybluemix.net//setPhone', 
     					method: "GET",
     					params:{phone:data[0].pnumber}
  						}).success(function(data, status, headers, config) {
