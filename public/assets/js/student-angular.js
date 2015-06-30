@@ -34,7 +34,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
  						}).success(function(data, status, headers, config) {
 
  							console.log(data);
-                             window.location.replace('./studentPostLogin.html');
+                             //window.location.replace('./studentPostLogin.html');
 						});
 
                         });
