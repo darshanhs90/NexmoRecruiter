@@ -7,6 +7,7 @@ $scope.pnum='';
 $scope.selectVal=-1;
 $scope.globalPhoneNumber='';
 $scope.requestId='';
+$scope.showinsights=false;
 //php request to get data from "listOfNames"
 $scope.listOfNames='';
 $http.get('http://nexruiter.webuda.com/retrieve.php')
@@ -56,6 +57,7 @@ $scope.getInsights=function($val){
     params:{val:val}
  }).success(function(data, status, headers, config) {
     //alert(data);
+    $scope.showinsights=true;
     $scope.insights=data.tree.children;
     console.log($scope.insights);
     $scope.personality=($scope.insights[0].children[0].children);
