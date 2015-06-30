@@ -125,7 +125,7 @@ $http({
 $http({
     url: 'http://nexmorecruiter.mybluemix.net/call', 
     method: "GET",
-    params:{number:toPhone,textval:textval}
+    params:{number:toPhone,text:textval}
  }).success(function(data, status, headers, config) {
     alert('Student has been successfully Informed by Call');
     console.log(data);
