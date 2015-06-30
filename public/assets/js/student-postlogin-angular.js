@@ -39,6 +39,7 @@ $http({
 
 $http.get('http://nexmorecruiter.mybluemix.net/getPhone')
                     .success(function(data, status, headers, config) {
+                        console.log('phone number is');
                       $scope.phoneNum=data;
                       console.log($scope.phoneNum);
                     }).error(function(data, status) { 

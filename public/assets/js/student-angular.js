@@ -13,7 +13,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
 			'pwd':$scope.pwd
 		})
                     .success(function(data, status, headers, config) {
-                      alert(data);
+                      //alert(data);
                      		//$scope.listOfNames=data;
                             console.log(data);
                             if(data!='Unsuccessful Login'){
