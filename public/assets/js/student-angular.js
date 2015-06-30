@@ -25,7 +25,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
  						}).success(function(data, status, headers, config) {
  						
  							console.log(data);
-						});
+						
 
  						$http({
     					url: 'http://nexmorecruiter.mybluemix.net/setPhone', 
@@ -34,16 +34,17 @@ $http.post('http://nexruiter.webuda.com/login.php',{
  						}).success(function(data, status, headers, config) {
 
  							console.log(data);
+                             window.location.replace('./studentPostLogin.html');
 						});
 
+                        });
 
 
 
 
 
 
-
-	                             window.location.replace('./studentPostLogin.html');
+	                            
 	                             }
 	                         else
 	                         	alert('Bad Credentials');
