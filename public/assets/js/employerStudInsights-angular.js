@@ -13,15 +13,15 @@ $http.get('http://nexruiter.webuda.com/retrieve.php')
                     .success(function(data, status, headers, config) {
                             $scope.listOfNames=data;
                             console.log(data);
-                            $http.get('http://localhost:1337/getPhone')
+                            $http.get('http://nexmorecruiter.mybluemix.net/getPhone')
                                 .success(function(data, status, headers, config) {
                             $scope.globalPhoneNumber=data;
                             console.log(data);
                              }).error(function(data, status) { 
-                                 alert("Error While Fetching Data,Try Again");
+                                 //alert("Error While Fetching Data,Try Again");
                             });  
                     }).error(function(data, status) { 
-                        alert("Error While Fetching Data,Try Again");
+                        //alert("Error While Fetching Data,Try Again");
                     });  
 
 
