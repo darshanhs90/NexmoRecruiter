@@ -155,7 +155,7 @@ else if($scope.slct=='Recruiter')
     	for (var i = 0; i <data.length; i++) {
     		
  						$http({
-    					url: 'http://localhost:1337/message1', 
+    					url: 'http://nexmorecruiter.mybluemix.net/message1', 
     					method: "GET",
     					params:{number:$scope.listOfSubscribers[i].pnumber,text:$scope.comp}
  						}).success(function(data, status, headers, config) {
