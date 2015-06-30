@@ -60,6 +60,7 @@ $scope.getInsights=function($val){
     $scope.personality=($scope.insights[0].children[0].children);
     $scope.needs=($scope.insights[0].children[0].children);
     $scope.values=($scope.insights[1].children[0].children);
+    console.log($scope.personality);
     console.log($scope.needs);
     console.log($scope.values);
     //console.log(data);
