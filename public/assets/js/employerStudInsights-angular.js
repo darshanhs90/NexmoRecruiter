@@ -57,9 +57,10 @@ $scope.getInsights=function($val){
  }).success(function(data, status, headers, config) {
     //alert(data);
     $scope.insights=data.tree.children;
+    console.log($scope.insights);
     $scope.personality=($scope.insights[0].children[0].children);
-    $scope.needs=($scope.insights[0].children[0].children);
-    $scope.values=($scope.insights[1].children[0].children);
+    $scope.needs=($scope.insights[1].children[0].children);
+    $scope.values=($scope.insights[2].children[0].children);
     console.log($scope.personality);
     console.log($scope.needs);
     console.log($scope.values);
