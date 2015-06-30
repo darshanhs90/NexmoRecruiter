@@ -36,6 +36,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
  						}).success(function(data, status, headers, config) {
 
  							console.log(data);
+                            window.location.replace('./employerPostLogin.html');
 						});   
                         console.log(data);
                         });
@@ -47,7 +48,7 @@ $http.post('http://nexruiter.webuda.com/login.php',{
 
 
 
-	                            window.location.replace('./employerPostLogin.html');
+	                            
 	                             }
 	                         else
 	                         	alert('Bad Credentials');
